@@ -1,0 +1,25 @@
+{
+  "name": "fft",
+  "version": "0.0.1",
+  "description": "Follow following target",
+  "main": "index.js",
+  "repository": "https://github.com/VicoErv/fft",
+  "author": "Vico Ervanda Putra <vicoerv@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "instagram-private-api": "^0.6.8",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
+    "@babel/preset-env": "^7.2.0"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/babel src -d dist --source-maps",
+    "start": "yarn build && node --nolazy --inspect-brk=5858 dist/index.js"
+  }
+}
