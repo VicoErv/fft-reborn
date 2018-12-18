@@ -29,7 +29,6 @@ export default class Instagram {
                 }).catch(function (err) {
                     console.log(err.message);
                 })
-
             })
         }
     }
