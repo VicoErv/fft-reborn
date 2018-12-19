@@ -16,10 +16,14 @@
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-regenerator": "^7.0.0",
-    "@babel/preset-env": "^7.2.0"
+    "@babel/preset-env": "^7.2.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-google": "^0.11.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel src -d dist --source-maps",
-    "start": "yarn build && node --nolazy --inspect-brk=5858 dist/index.js"
+    "debug": "yarn build && node --nolazy --inspect-brk=5858 dist/index.js",
+    "start": "yarn build && node dist/index.js"
   }
 }
