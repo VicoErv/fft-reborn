@@ -67,4 +67,24 @@ export default class Instagram {
   async getRelationship(accountId) {
     return Client.Relationship.get(this.session, accountId);
   }
+
+  /**
+   * get target media
+   * @param {number} accountId  - id of target
+   * @return {Array}
+   */
+  async feed(accountId) {
+    const userMediaFeed = new Client.Feed.UserMedia(this.session, accountId);
+
+    return await userMediaFeed.get();
+  }
+
+  /**
+   * like a media
+   * @param {number} mediaId - media that you want to like
+   * @return {object}
+   */
+  async like(mediaId) {
+    return Client.Like.create(this.session, mediaId);
+  }
 }

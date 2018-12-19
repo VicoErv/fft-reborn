@@ -52,7 +52,17 @@ async function bootstrap() {
 
       const relationship = await instagram.getRelationship(follow.id);
 
-      console.log(relationship.params.following);
+      if (relationship.params.following) {
+        continue;
+      }
+
+      const media = await instagram.feed(follow.id);
+
+      if (media.length > 0) {
+        const like = await instagram.like(media[0].id);
+
+        console.log(like);
+      }
 
       await sleep(delay);
     }
