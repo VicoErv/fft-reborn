@@ -50,12 +50,21 @@ export default class Instagram {
   }
 
   /**
-   * get list of following target
+   * get list of target followers
    * @param {string} username - Username of target
    * @return {AccountFollowers}
    */
-  async following(username) {
+  async followers(username) {
     const user = await Client.Account.searchForUser(this.session, username);
     return new Client.Feed.AccountFollowers(this.session, user.id);
+  }
+
+  /**
+   * check relationship status
+   * @param {number} accountId - Account id of target
+   * @return {object}
+   */
+  async getRelationship(accountId) {
+    return Client.Relationship.get(this.session, accountId);
   }
 }

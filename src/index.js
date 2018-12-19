@@ -41,16 +41,23 @@ async function bootstrap() {
   instagram = new Instagram(username, password);
   await instagram.login();
 
-  const following = await instagram.following(target);
-  let followings = await following.get();
+  const follower = await instagram.followers(target);
+  let followers = await follower.get();
 
-  while (following.moreAvailable) {
-    for (const follow of followings) {
-      console.log(follow.params.fullName);
+  while (follower.moreAvailable) {
+    for (const follow of followers) {
+      if (follow.params.isPrivate || follow.params.isVerified) {
+        continue;
+      }
+
+      const relationship = await instagram.getRelationship(follow.id);
+
+      console.log(relationship.params.following);
+
       await sleep(delay);
     }
 
-    followings = await following.get();
+    followers = await follower.get();
   }
 }
 
