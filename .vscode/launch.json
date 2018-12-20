@@ -10,7 +10,7 @@
             "request": "launch",
             "name": "yarn start",
             "cwd": "${workspaceRoot}",
-            "runtimeExecutable": "yarn",
+            "runtimeExecutable": "$HOME/Programs/node/bin/yarn",
             "runtimeArgs": [
                 "debug"
             ],

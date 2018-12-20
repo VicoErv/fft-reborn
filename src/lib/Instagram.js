@@ -87,4 +87,21 @@ export default class Instagram {
   async like(mediaId) {
     return Client.Like.create(this.session, mediaId);
   }
+
+  /**
+   * post comment to mediaId
+   * @param {number} mediaId - media that want to comment
+   * @param {string} comment - comment text
+   */
+  async comment(mediaId, comment) {
+    return Client.Comment.create(this.session, mediaId, comment);
+  }
+
+  /**
+   * follow target
+   * @param {number} accountId - id of target
+   */
+  async follow(accountId) {
+    return Client.Relationship.create(this.session, accountId);
+  }
 }

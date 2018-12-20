@@ -1,6 +1,9 @@
 import '@babel/polyfill';
 
+import {sample} from 'lodash';
 import {Ask} from './lib/Util';
+import {COMMENT as com} from './lib/Comment';
+import format from 'string-format';
 import Instagram from './lib/Instagram';
 import {mkdirp as mkdir} from 'mkdirp';
 
@@ -9,6 +12,15 @@ let username;
 let password;
 let target;
 let delay = 0;
+
+/**
+ * generate random comment
+ * @param {object} params - object contains target information
+ * @return {string}
+ */
+function generateComment(params) {
+  return format(sample(com), params);
+}
 
 /**
  * Bring delay to nodejs
@@ -47,21 +59,27 @@ async function bootstrap() {
   while (follower.moreAvailable) {
     for (const follow of followers) {
       if (follow.params.isPrivate || follow.params.isVerified) {
+        console.log('user is private/verified, skipped');
         continue;
       }
 
       const relationship = await instagram.getRelationship(follow.id);
 
       if (relationship.params.following) {
+        console.log('user was followed');
         continue;
       }
 
       const media = await instagram.feed(follow.id);
 
       if (media.length > 0) {
-        const like = await instagram.like(media[0].id);
-
-        console.log(like);
+        if (!media[0].params.hasLiked) {
+          await instagram.like(media[0].id);
+          await instagram.comment(media[0].id,
+              generateComment(follow.params));
+          await instagram.follow(follow.id);
+          console.log(`[${follow.params.username}] has been followed`);
+        }
       }
 
       await sleep(delay);
@@ -72,3 +90,8 @@ async function bootstrap() {
 }
 
 mkdir(__dirname + '/lib/local/cookie/', bootstrap);
+
+process.on('unhandledRejection', (reason, p) => {
+  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+  // application specific logging, throwing an error, or other logic here
+});
