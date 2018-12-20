@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 
 import {sample} from 'lodash';
-import {Ask} from './lib/Util';
+import Ask from './lib/Ask';
 import {COMMENT as com} from './lib/Comment';
 import format from 'string-format';
 import Instagram from './lib/Instagram';

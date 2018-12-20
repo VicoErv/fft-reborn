@@ -1,7 +1,7 @@
 import readline from 'readline';
 
 /** This is Ask class, literally for asking :) */
-export class Ask {
+class Ask {
   /**
    * Initialize Ask instance
    * @constructor
@@ -49,3 +49,5 @@ export class Ask {
     });
   }
 }
+
+export default Ask;

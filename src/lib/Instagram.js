@@ -2,7 +2,7 @@ import {V1 as Client} from 'instagram-private-api';
 import {existsSync as isFile} from 'fs';
 
 /** Instagram instance, all action related to instagram api will placed here */
-export default class Instagram {
+class Instagram {
   /**
    * Instagram constructor
    * @param {string} username - Username of user
@@ -105,3 +105,5 @@ export default class Instagram {
     return Client.Relationship.create(this.session, accountId);
   }
 }
+
+export default Instagram;
